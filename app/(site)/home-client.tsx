@@ -7,12 +7,15 @@ import { useEffect } from "react";
 const HomeClient = () => {
     const { viewportWidth, viewportHeight } = useViewport();
 
-    const octahedronQuantityHorizontal = Math.ceil(viewportWidth / 64);
-    const octahedronQuantityVertical = Math.ceil(viewportHeight / 64);
+    const octahedronQuantityHorizontal = Math.ceil(viewportWidth / 62);
+    const octahedronQuantityVertical = Math.ceil(viewportHeight / 62);
 
     const octahedronsHorizontal = Array.from(
         { length: octahedronQuantityHorizontal },
-        (_, index) => <Octahedron key={index} width="64" height="64" />
+        (_, index) =>
+            <div key={index} className="-m-[1px]">
+                <Octahedron key={index} width="64" height="64" />
+            </div>
     );
 
     const octahedronsVertical = Array.from(
