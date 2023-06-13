@@ -1,13 +1,13 @@
 import { SiteConfig } from "@/types/site";
 
 export const siteConfig: SiteConfig = {
-  name: "Raphael Andrews",
+  name: "ndrws",
   description:
     "Fullstack Developer",
   url: "https://ndrws.dev",
   ogImage: "",
   links: {
-    twitter: "https://twitter.com/shadcn",
+    linkedin: "https://www.linkedin.com/in/raphael-andrews/",
     github: "https://github.com/raphaelandrews",
   },
 }
