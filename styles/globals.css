@@ -6,6 +6,8 @@
   :root {
     --primary: 0 0% 100%;
     --secondary: 0 0% 100%;
+    --cyan: 150 80% 56%;
+    --orange: 16 98% 52%;
     --foreground: 18 59% 13%;
     --background: 40 10% 6%;
   }

@@ -10,13 +10,10 @@ const useViewport = () => {
     };
   
     useEffect(() => {
-      // Event listener for window resize
       window.addEventListener('resize', handleResize);
   
-      // Initial width and height on component mount
       handleResize();
   
-      // Clean up event listener on component unmount
       return () => {
         window.removeEventListener('resize', handleResize);
       };
