@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
 import { siteConfig } from "@/config/site";
+import Header from '@/components/header';
 
 const font = Inter({
   subsets: ['latin'],
@@ -53,7 +54,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body className={font.className}>
+        <Header />
+        {children}
+      </body>
     </html>
   )
 }
