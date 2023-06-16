@@ -1,7 +1,6 @@
 import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
 import { siteConfig } from "@/config/site";
-import Header from '@/components/header';
 
 const font = Inter({
   subsets: ['latin'],
