@@ -39,11 +39,6 @@ export default function Home() {
         subtitle="My social links"
         links={social}
       />
-      <Section
-        title="Social"
-        subtitle="My social links"
-        links={social}
-      />
     </main >
   )
 }
