@@ -1,7 +1,5 @@
 import Section from "@/components/section";
-import { ModeToggle } from "@/components/mode-toggle";
-import Logo from "@/components/logo";
-
+import Gradients from "@/components/gradients";
 import { projects, clones, social } from "@/data/links";
 
 export default function Home() {
@@ -9,7 +7,9 @@ export default function Home() {
     <main className="p-12 bg-background">
       <section>
         <div className="flex items-center gap-2">
-          <Logo />
+          <span
+            className="w-6 h-6 rounded-full bg-gradient-one cursor-pointer"
+          />
           <h1 className="text-lg text-primary font-bold">ndrws</h1>
         </div>
         <p className="text-primary mt-10">👋 Hello.</p>
@@ -21,9 +21,7 @@ export default function Home() {
           things.
         </p>
       </section>
-      <Section title="Themes" subtitle="Choose wisely">
-        <ModeToggle />
-      </Section>
+
       <Section
         title="Projects"
         subtitle="Some things I built from scratch"
@@ -39,6 +37,7 @@ export default function Home() {
         subtitle="My social links"
         links={social}
       />
+      <Gradients />
     </main >
   )
 }
