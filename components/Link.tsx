@@ -1,7 +1,4 @@
-interface ILink {
-    href: string;
-    label: string;
-}
+import { ILink } from "@/types/global";
 
 const Link = ({ href, label }: ILink) => {
     return (

@@ -1,7 +1,9 @@
 import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
 import { siteConfig } from "@/config/site";
-import Filter from '@/components/Filter';
+import Filter from '@/components/filter';
+import { ThemeProvider } from '@/components/theme-provider';
+import FooterGradient from '@/components/footer-gradient';
 
 const font = Inter({
   subsets: ['latin'],
@@ -55,8 +57,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        {children}
-        <Filter />
+        <ThemeProvider
+          themes={['cyberpunk', 'light', 'dark']}
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+        >
+          {children}
+          <FooterGradient />
+          <Filter />
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -11,8 +11,8 @@ const Filter = () => {
                 pointer-events-none
                 opacity-25
                 filter
-                brightness-[.5]
-                contrast-[.5]
+                brightness-[.2]
+                contrast-[.8]
             "
         >
             <filter id="noise">

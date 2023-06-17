@@ -60,6 +60,11 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      backgroundImage: {
+        'gradient-one': "var(--gradient-one)",
+        'gradient-two': "var(--gradient-two)",
+        'gradient-three': "var(--gradient-three)",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
