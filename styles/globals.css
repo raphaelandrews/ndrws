@@ -41,9 +41,15 @@
 
     --radius: 0.5rem;
 
-    --gradient-one: linear-gradient(132.77deg, #8200FF 25.97%, #FF075A 74.17%);
-    --gradient-two: linear-gradient(132.77deg, #02008B 25.97%, #00FF80 74.17%);
-    --gradient-three: linear-gradient(132.77deg, #FF2C05 25.97%, #FFCE03 74.17%);
+    --gradient-one: linear-gradient(132.77deg,
+        #8200FF 25.97%,
+        #FF075A 74.17%);
+    --gradient-two: linear-gradient(132.77deg,
+        #02008B 25.97%,
+        #00FF80 74.17%);
+    --gradient-three: linear-gradient(132.77deg,
+        #FF045B 25.97%,
+        #FF8728 74.17%);
   }
 }
 
