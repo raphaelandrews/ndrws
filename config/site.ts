@@ -1,4 +1,4 @@
-import { SiteConfig } from "@/types/site";
+import { SiteConfig } from "@/types/global";
 
 export const siteConfig: SiteConfig = {
   name: "ndrws",
