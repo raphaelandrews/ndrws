@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 import { siteConfig } from "@/config/site";
 import Filter from '@/components/filter';
 
@@ -57,6 +58,7 @@ export default function RootLayout({
       <body className={font.className}>
           {children}
           <Filter />
+          <Analytics />
       </body>
     </html>
   )
