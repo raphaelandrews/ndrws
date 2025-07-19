@@ -1,0 +1,196 @@
+#spotify-data {
+  display: block;
+  margin-bottom: 20px;
+}
+
+#spotify-data h3 {
+  margin-top: 20px;
+}
+
+#top-tracks-list,
+#top-artists-list {
+  list-style: none;
+  padding: 0;
+}
+
+.track-list-item,
+.artist-list-item {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.track-list-item .track-number,
+.artist-list-item .artist-number {
+  float: left;
+  margin-right: 12px;
+}
+
+.track-list-item .track-details,
+.artist-list-item .artist-details {
+  float: left;
+}
+
+.track-list-item .track-text-content,
+.artist-list-item .artist-text-content {
+  margin-left: 0; 
+  margin-top: 0; 
+}
+
+.track-number,
+.artist-number {
+  font-size: 30px;
+  color: #71717a;
+  font-weight: 700;
+  display: inline-block;
+  width: 20px;
+}
+
+.track-details,
+.artist-details {
+  display: block;
+  text-align: center; 
+}
+
+.track-text-content,
+.artist-text-content {
+  margin-left: 12px;
+  margin-top: -4px;
+}
+
+.link-transition:hover {
+  color: #1db954;
+}
+
+.vinyl-container {
+  display: flex;
+  margin-left: 10px;
+}
+
+.vinyl-container .vinyl-record {
+  float: left;
+}
+
+.vinyl-record {
+  position: relative;
+  margin-left: -10px;
+  transition: transform 0.3s ease;
+  outline: 2px solid #ffffff;
+  border-radius: calc(infinity * 1px);
+}
+
+.vinyl-record:hover {
+  transform: translateY(-10px);
+  animation: spin 2s linear infinite;
+}
+
+.vinyl-record.sm {
+  width: 64px;
+  height: 64px;
+}
+
+.vinyl-record.md {
+  width: 96px;
+  height: 96px;
+}
+
+.vinyl-record.lg {
+  width: 128px;
+  height: 128px;
+}
+
+.vinyl-record-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 9999px;
+  background-image: linear-gradient(to bottom right, #1a202c, #2d3748, #000000);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.vinyl-record-groove {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1px solid;
+  opacity: 0.3;
+}
+
+.vinyl-record-groove-1 {
+  top: 4px;
+  right: 4px;
+  bottom: 4px;
+  left: 4px;
+  border-color: #4a5568;
+}
+
+.vinyl-record-groove-2 {
+  top: 8px;
+  right: 8px;
+  bottom: 8px;
+  left: 8px;
+  border-color: #4a5568;
+}
+
+.vinyl-record-groove-3 {
+  top: 16px;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  border-color: #4a5568;
+  opacity: 0.2;
+}
+
+.vinyl-record-groove-4 {
+  top: 24px;
+  right: 24px;
+  bottom: 24px;
+  left: 24px;
+  border-color: #4a5568;
+  opacity: 0.1;
+}
+
+.vinyl-record-center-hole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background-color: #1a202c;
+  border: 1px solid #4a5568;
+  z-index: 10;
+}
+
+.album-cover {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  width: 40px;
+  height: 40px;
+}
+
+.album-cover img {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 3s linear infinite;
+}
