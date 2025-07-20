@@ -122,7 +122,7 @@ tr {
 }
 
 #side-td {
-  width: 280px;
+  max-width: 280px;
   vertical-align: baseline;
 }
 
