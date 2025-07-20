@@ -5,11 +5,36 @@
     <meta name="description" content="My website." />
     <meta name="keywords" content="Fullstack Developer" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="/favicon.jpg" />
   </head>
   <body>
-    <h1>🌴</h1>
+    <div id="container">
+      <h1 style="height: 40px"></h1>
+      <table>
+        <tbody>
+          <tr>
+            <td id="main-td">
+              <div class="wrapper" id="hero">
+                <img
+                  src="/favicon.jpg"
+                  alt="favicon"
+                  style="
+                    vertical-align: sub;
+                    width: 32px;
+                    height: 32px;
+                    margin-right: 6px;
+                  "
+                />
+                <h2>Welcome!</h2>
 
-    <div id="spotify-data"></div>
+                <div id="spotify-data"></div>
+              </div>
+            </td>
+            <td id="side-td"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <script src="script.js"></script>
   </body>

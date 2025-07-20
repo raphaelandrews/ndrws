@@ -24,7 +24,6 @@ function TopArtists() {
             vinylRecordsData.push({
                 imageUrl: artist.image ? artist.image.url : '',
                 alt: artist.name,
-                size: 'sm',
                 isPlaying: false,
                 url: artist.url
             });
@@ -50,7 +49,6 @@ function TopTracks() {
             vinylRecordsData.push({
                 imageUrl: track.albumImage ? track.albumImage.url : '',
                 alt: track.albumName,
-                size: 'sm',
                 isPlaying: false,
                 url: track.url
             });
@@ -64,11 +62,10 @@ function TopTracks() {
 function VinylRecord(record) {
     var imageUrl = record.imageUrl;
     var alt = record.alt;
-    var size = record.size || 'sm';
     var isPlaying = record.isPlaying || false;
     var url = record.url;
     var vinylRecordDiv = document.createElement('div');
-    vinylRecordDiv.className = 'vinyl-record ' + size;
+    vinylRecordDiv.className = 'vinyl-record ';
 
     var vinylBackgroundDiv = document.createElement('div');
     vinylBackgroundDiv.className = 'vinyl-record-background';
