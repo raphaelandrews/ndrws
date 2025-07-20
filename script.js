@@ -1,10 +1,8 @@
 window.onload = function() {
     var spotifySection = document.getElementById('spotify-data');
-    if (!spotifySection) {
-        alert('Spotify-data element not found!');
-        return;
-    }
 
+    CurrentlyPlaying();
+    RecentlyPlayed();
     TopArtists();
     TopTracks();
 };
@@ -122,6 +120,99 @@ function VinylContainer(records) {
     return container;
 }
 
+function CurrentlyPlaying() {
+    var spotifySection = document.getElementById('spotify-data');
+    var data = getSpotifyData('currently-playing');
+
+    if (data && data.isPlaying) {
+        var currentlyPlayingHtml = `
+            <h3>Currently Playing</h3>
+            <div class="vinyl-container">
+                <a href="${data.songUrl}" target="_blank">
+                    <div class="vinyl-record animate-spin">
+                        <div class="vinyl-record-background">
+                            <div class="vinyl-record-groove vinyl-record-groove-1"></div>
+                            <div class="vinyl-record-groove vinyl-record-groove-2"></div>
+                            <div class="vinyl-record-groove vinyl-record-groove-3"></div>
+                            <div class="vinyl-record-groove vinyl-record-groove-4"></div>
+                            <div class="vinyl-record-center-hole"></div>
+                        </div>
+                        <div class="album-cover">
+                            <img src="${data.albumImageUrl}" alt="Album Cover">
+                        </div>
+                    </div>
+                </a>
+                <div style="margin-left: 20px;">
+                    <p><strong>${data.title}</strong></p>
+                    <p>${data.artist}</p>
+                </div>
+            </div>
+        `;
+        spotifySection.innerHTML = currentlyPlayingHtml + spotifySection.innerHTML;
+    } else {
+        var notPlayingHtml = `
+            <h3>Currently Playing</h3>
+            <div class="vinyl-container">
+                <div class="vinyl-record">
+                    <div class="vinyl-record-background">
+                        <div class="vinyl-record-groove vinyl-record-groove-1"></div>
+                        <div class="vinyl-record-groove vinyl-record-groove-2"></div>
+                        <div class="vinyl-record-groove vinyl-record-groove-3"></div>
+                        <div class="vinyl-record-groove vinyl-record-groove-4"></div>
+                        <div class="vinyl-record-center-hole"></div>
+                    </div>
+                    <div class="album-cover">
+                        <!-- Empty when no music is playing -->
+                    </div>
+                </div>
+                <div style="margin-left: 20px;">
+                    <p>Not currently playing anything on Spotify.</p>
+                </div>
+            </div>
+        `;
+        spotifySection.innerHTML = notPlayingHtml + spotifySection.innerHTML;
+    }
+}
+
+function RecentlyPlayed() {
+    var spotifySection = document.getElementById('spotify-data');
+    var responseData = getSpotifyData('recently-played');
+
+
+
+    if (responseData && responseData.items && responseData.items.length > 0) {
+        var recentlyPlayedTitle = document.createElement('h3');
+        recentlyPlayedTitle.innerHTML = 'Recently Played';
+        spotifySection.appendChild(recentlyPlayedTitle);
+
+        var vinylRecordsData = [];
+        for (var i = 0; i < responseData.items.length; i++) {
+            if (responseData.items[i].track) {
+                var track = responseData.items[i].track;
+                vinylRecordsData.push({
+                    imageUrl: track.album.images[0].url,
+                    alt: track.name + ' by ' + track.artists[0].name,
+                    isPlaying: false,
+                    url: track.external_urls.spotify
+                });
+            }
+        }
+
+        if (vinylRecordsData.length > 0) {
+            var vinylContainer = VinylContainer(vinylRecordsData);
+            spotifySection.appendChild(vinylContainer);
+        } else {
+            spotifySection.innerHTML += '<p>No valid track data found</p>';
+        }
+    } else {
+        var notPlayingHtml = `
+            <h3>Recently Played</h3>
+            <p>No recently played tracks found.</p>
+        `;
+        spotifySection.innerHTML += notPlayingHtml;
+    }
+}
+
 function getSpotifyData(endpoint) {
     var spotifySection = document.getElementById('spotify-data');
     var xhr = new XMLHttpRequest();
@@ -131,11 +222,9 @@ function getSpotifyData(endpoint) {
         if (xhr.status >= 200 && xhr.status < 300) {
             return JSON.parse(xhr.responseText);
         } else {
-            alert('HTTP error! status: ' + xhr.status);
             return null;
         }
     } catch (e) {
-        alert('Network error fetching ' + endpoint + ': ' + e.message);
         if (spotifySection) {
             spotifySection.innerHTML = '<div class="error"><h3>Error loading Spotify data</h3><p><strong>Error:</strong> Network Error</p><p><strong>Troubleshooting steps:</strong></p><ul><li>1. Ensure your server is running on the same origin as this page (' + window.location.origin + ')</li><li>2. Check that your Spotify API credentials are configured</li><li>3. Verify CORS is enabled on your server</li><li>4. Check the browser console for more details</li></ul></div>';
         }

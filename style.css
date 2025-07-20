@@ -18,11 +18,11 @@
 }
 
 body {
-  font-family: "VT323", monospace;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
   color: white;
   text-shadow: var(--body-text-shadow);
-  background-color: black;
   image-rendering: pixelated;
+  background-color: black;
   background-image: url("images/stars-bg.gif");
   background-attachment: fixed;
   background-repeat: repeat;
@@ -33,11 +33,12 @@ body {
 body::before {
   content: " ";
   display: block;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  height: 100vh;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
     linear-gradient(
       90deg,
@@ -53,7 +54,7 @@ body::before {
 body::after {
   content: " ";
   display: block;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
@@ -63,6 +64,27 @@ body::after {
   z-index: 2;
   pointer-events: none;
   animation: flicker 0.15s infinite;
+}
+
+h1 {
+  font-family: "Silkscreen", sans-serif;
+  font-size: 64px;
+  text-align: center;
+  line-height: 1em;
+  color: var(--primary-color);
+  margin: 20px 0;
+}
+
+h2 {
+  display: inline;
+  font-family: "Silkscreen";
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+h3 {
+  font-weight: normal;
 }
 
 table {
@@ -119,24 +141,18 @@ tr {
   padding: 0;
 }
 
-.wrapper {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border-width: 2px;
-  border-style: solid;
-  border-color: rgb(56, 56, 56);
-  border-image: initial;
-  border-radius: 4px;
-  padding: 10px 15px;
-  margin: 5px;
+#badges {
+  width: 150px;
+  height: 20px;
 }
 
-.wrapper h2 {
-  display: inline;
-  font-family: "Silkscreen";
-  font-size: 28px;
-  font-weight: bold;
-  color: var(--primary-color);
+.wrapper {
+  background-color: #000000a8;
+  border: 2px solid #383838;
+  border-radius: 4px;
+  color: white;
+  padding: 10px 15px;
+  margin: 5px;
 }
 
 .track-list-item,
@@ -190,7 +206,7 @@ tr {
 
 .vinyl-container {
   display: flex;
-  margin-left: 24px;
+  margin-left: 16px;
 }
 
 .vinyl-container .vinyl-record {
@@ -199,9 +215,9 @@ tr {
 
 .vinyl-record {
   position: relative;
-  width: 72px;
-  height: 72px;
-  margin-left: -24px;
+  width: 64px;
+  height: 64px;
+  margin-left: -16px;
   transition: transform 0.3s ease;
   border-radius: calc(infinity * 1px);
 }
@@ -211,8 +227,8 @@ tr {
 }
 
 .vinyl-record .album-cover {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
 }
 
 .vinyl-record-background {
@@ -251,6 +267,14 @@ tr {
 }
 
 .vinyl-record-groove-3 {
+  top: 12px;
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  border-color: #4a5568;
+}
+
+.vinyl-record-groove-4 {
   top: 16px;
   right: 16px;
   bottom: 16px;
@@ -259,7 +283,16 @@ tr {
   opacity: 0.2;
 }
 
-.vinyl-record-groove-4 {
+.vinyl-record-groove-5 {
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+  border-color: #4a5568;
+  opacity: 0.1;
+}
+
+.vinyl-record-groove-6 {
   top: 24px;
   right: 24px;
   bottom: 24px;
