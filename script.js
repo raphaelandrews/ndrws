@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function () {
     var spotifySection = document.getElementById('spotify-data');
 
     CurrentlyPlaying();
@@ -68,21 +68,9 @@ function VinylRecord(record) {
     var vinylBackgroundDiv = document.createElement('div');
     vinylBackgroundDiv.className = 'vinyl-record-background';
 
-    var groove1 = document.createElement('div');
-    groove1.className = 'vinyl-record-groove vinyl-record-groove-1';
-    vinylBackgroundDiv.appendChild(groove1);
-
-    var groove2 = document.createElement('div');
-    groove2.className = 'vinyl-record-groove vinyl-record-groove-2';
-    vinylBackgroundDiv.appendChild(groove2);
-
-    var groove3 = document.createElement('div');
-    groove3.className = 'vinyl-record-groove vinyl-record-groove-3';
-    vinylBackgroundDiv.appendChild(groove3);
-
-    var groove4 = document.createElement('div');
-    groove4.className = 'vinyl-record-groove vinyl-record-groove-4';
-    vinylBackgroundDiv.appendChild(groove4);
+    var groove = document.createElement('div');
+    groove.className = 'vinyl-record-groove vinyl-record-groove';
+    vinylBackgroundDiv.appendChild(groove);
 
     var centerHole = document.createElement('div');
     centerHole.className = 'vinyl-record-center-hole';
@@ -102,7 +90,7 @@ function VinylRecord(record) {
 
     var link = document.createElement('a');
     link.href = url || '#';
-    link.target = '_blank'; 
+    link.target = '_blank';
     link.appendChild(vinylRecordDiv);
 
     return link;
@@ -127,14 +115,11 @@ function CurrentlyPlaying() {
     if (data && data.isPlaying) {
         var currentlyPlayingHtml = `
             <h3>Currently Playing</h3>
-            <div class="vinyl-container">
+            <div id="vinyl-container-main" class="vinyl-container">
                 <a href="${data.songUrl}" target="_blank">
                     <div class="vinyl-record animate-spin">
                         <div class="vinyl-record-background">
-                            <div class="vinyl-record-groove vinyl-record-groove-1"></div>
-                            <div class="vinyl-record-groove vinyl-record-groove-2"></div>
-                            <div class="vinyl-record-groove vinyl-record-groove-3"></div>
-                            <div class="vinyl-record-groove vinyl-record-groove-4"></div>
+                            <div class="vinyl-record-groove"></div>
                             <div class="vinyl-record-center-hole"></div>
                         </div>
                         <div class="album-cover">
@@ -142,7 +127,7 @@ function CurrentlyPlaying() {
                         </div>
                     </div>
                 </a>
-                <div style="margin-left: 20px;">
+                <div>
                     <p><strong>${data.title}</strong></p>
                     <p>${data.artist}</p>
                 </div>
@@ -152,22 +137,17 @@ function CurrentlyPlaying() {
     } else {
         var notPlayingHtml = `
             <h3>Currently Playing</h3>
-            <div class="vinyl-container">
+            <div id="vinyl-container-main" class="vinyl-container">
                 <div class="vinyl-record">
                     <div class="vinyl-record-background">
-                        <div class="vinyl-record-groove vinyl-record-groove-1"></div>
-                        <div class="vinyl-record-groove vinyl-record-groove-2"></div>
-                        <div class="vinyl-record-groove vinyl-record-groove-3"></div>
-                        <div class="vinyl-record-groove vinyl-record-groove-4"></div>
+                        <div class="vinyl-record-groove"></div>
                         <div class="vinyl-record-center-hole"></div>
                     </div>
                     <div class="album-cover">
                         <!-- Empty when no music is playing -->
                     </div>
                 </div>
-                <div style="margin-left: 20px;">
-                    <p>Not currently playing anything on Spotify.</p>
-                </div>
+                <p>Not currently playing anything on Spotify.</p>
             </div>
         `;
         spotifySection.innerHTML = notPlayingHtml + spotifySection.innerHTML;
@@ -177,8 +157,6 @@ function CurrentlyPlaying() {
 function RecentlyPlayed() {
     var spotifySection = document.getElementById('spotify-data');
     var responseData = getSpotifyData('recently-played');
-
-
 
     if (responseData && responseData.items && responseData.items.length > 0) {
         var recentlyPlayedTitle = document.createElement('h3');
@@ -216,7 +194,7 @@ function RecentlyPlayed() {
 function getSpotifyData(endpoint) {
     var spotifySection = document.getElementById('spotify-data');
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', window.location.origin + '/' + endpoint, false); 
+    xhr.open('GET', window.location.origin + '/' + endpoint, false);
     try {
         xhr.send();
         if (xhr.status >= 200 && xhr.status < 300) {
