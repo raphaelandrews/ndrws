@@ -1,14 +1,16 @@
 window.onload = function () {
-    var spotifySection = document.getElementById('spotify-data');
-
-    CurrentlyPlaying();
-    RecentlyPlayed();
+    var currentlyPlayingData = getSpotifyData('currently-playing');
+    if (currentlyPlayingData && currentlyPlayingData.isPlaying) {
+        CurrentlyPlaying(currentlyPlayingData);
+    } else {
+        RecentlyPlayed(true);
+    }
     TopArtists();
     TopTracks();
 };
 
 function TopArtists() {
-    var spotifySection = document.getElementById('spotify-data');
+    var spotifySection = document.getElementById('spotify-data-main');
     var data = getSpotifyData('top-artists');
 
     if (data && Array.isArray(data) && data.length > 0) {
@@ -33,7 +35,7 @@ function TopArtists() {
 };
 
 function TopTracks() {
-    var spotifySection = document.getElementById('spotify-data');
+    var spotifySection = document.getElementById('spotify-data-main');
     var data = getSpotifyData('top-tracks');
 
     if (data && Array.isArray(data) && data.length > 0) {
@@ -63,7 +65,7 @@ function VinylRecord(record) {
     var isPlaying = record.isPlaying || false;
     var url = record.url;
     var vinylRecordDiv = document.createElement('div');
-    vinylRecordDiv.className = 'vinyl-record ';
+    vinylRecordDiv.className = 'vinyl-record ' + (isPlaying ? 'animate-spin' : '');
 
     var vinylBackgroundDiv = document.createElement('div');
     vinylBackgroundDiv.className = 'vinyl-record-background';
@@ -108,35 +110,33 @@ function VinylContainer(records) {
     return container;
 }
 
-function CurrentlyPlaying() {
-    var spotifySection = document.getElementById('spotify-data');
-    var data = getSpotifyData('currently-playing');
+function CurrentlyPlaying(data) {
+    var spotifySection = document.getElementById('spotify-data-right');
 
     if (data && data.isPlaying) {
-        var currentlyPlayingHtml = `
-            <h3>Currently Playing</h3>
-            <div id="vinyl-container-main" class="vinyl-container">
-                <a href="${data.songUrl}" target="_blank">
-                    <div class="vinyl-record animate-spin">
-                        <div class="vinyl-record-background">
-                            <div class="vinyl-record-groove"></div>
-                            <div class="vinyl-record-center-hole"></div>
-                        </div>
-                        <div class="album-cover">
-                            <img src="${data.albumImageUrl}" alt="Album Cover">
-                        </div>
-                    </div>
-                </a>
-                <div>
-                    <p><strong>${data.title}</strong></p>
-                    <p>${data.artist}</p>
-                </div>
-            </div>
-        `;
-        spotifySection.innerHTML = currentlyPlayingHtml + spotifySection.innerHTML;
+        var currentlyPlayingTitle = document.createElement('h3');
+        currentlyPlayingTitle.innerHTML = 'Currently Playing';
+        spotifySection.appendChild(currentlyPlayingTitle);
+
+        var vinylRecordsData = [{
+            imageUrl: data.albumImageUrl,
+            alt: data.title,
+            isPlaying: true,
+            url: data.songUrl
+        }];
+
+        var vinylContainer = VinylContainer(vinylRecordsData);
+        spotifySection.appendChild(vinylContainer);
+
+        var songInfoDiv = document.createElement('div');
+        songInfoDiv.innerHTML = '<p><strong>' + data.title + '</strong></p><p>' + data.artist + '</p>';
+        spotifySection.appendChild(songInfoDiv);
     } else {
+        var notPlayingTitle = document.createElement('h3');
+        notPlayingTitle.innerHTML = 'Currently Playing';
+        spotifySection.appendChild(notPlayingTitle);
+
         var notPlayingHtml = `
-            <h3>Currently Playing</h3>
             <div id="vinyl-container-main" class="vinyl-container">
                 <div class="vinyl-record">
                     <div class="vinyl-record-background">
@@ -150,12 +150,12 @@ function CurrentlyPlaying() {
                 <p>Not currently playing anything on Spotify.</p>
             </div>
         `;
-        spotifySection.innerHTML = notPlayingHtml + spotifySection.innerHTML;
+        spotifySection.innerHTML += notPlayingHtml;
     }
 }
 
-function RecentlyPlayed() {
-    var spotifySection = document.getElementById('spotify-data');
+function RecentlyPlayed(isRightTd) {
+    var spotifySection = isRightTd ? document.getElementById('spotify-data-right') : document.getElementById('spotify-data-main');
     var responseData = getSpotifyData('recently-played');
 
     if (responseData && responseData.items && responseData.items.length > 0) {
@@ -164,14 +164,18 @@ function RecentlyPlayed() {
         spotifySection.appendChild(recentlyPlayedTitle);
 
         var vinylRecordsData = [];
-        for (var i = 0; i < responseData.items.length; i++) {
-            if (responseData.items[i].track) {
-                var track = responseData.items[i].track;
+        var itemsToDisplay = isRightTd ? [responseData.items[0]] : responseData.items; // Only show the first item if it's for right-td
+
+        for (var i = 0; i < itemsToDisplay.length; i++) {
+            if (itemsToDisplay[i].track) {
+                var track = itemsToDisplay[i].track;
                 vinylRecordsData.push({
                     imageUrl: track.album.images[0].url,
                     alt: track.name + ' by ' + track.artists[0].name,
                     isPlaying: false,
-                    url: track.external_urls.spotify
+                    url: track.external_urls.spotify,
+                    title: track.name,
+                    artist: track.artists[0].name
                 });
             }
         }
@@ -179,6 +183,15 @@ function RecentlyPlayed() {
         if (vinylRecordsData.length > 0) {
             var vinylContainer = VinylContainer(vinylRecordsData);
             spotifySection.appendChild(vinylContainer);
+
+            // Add song title and artist for recently played
+            if (isRightTd && itemsToDisplay[0] && itemsToDisplay[0].track) {
+                var track = itemsToDisplay[0].track;
+                var songInfoDiv = document.createElement('div');
+                songInfoDiv.innerHTML = '<p><strong>' + track.name + '</strong></p><p>' + track.artists[0].name + '</p>';
+                spotifySection.appendChild(songInfoDiv);
+            }
+
         } else {
             spotifySection.innerHTML += '<p>No valid track data found</p>';
         }
@@ -192,7 +205,6 @@ function RecentlyPlayed() {
 }
 
 function getSpotifyData(endpoint) {
-    var spotifySection = document.getElementById('spotify-data');
     var xhr = new XMLHttpRequest();
     xhr.open('GET', window.location.origin + '/' + endpoint, false);
     try {

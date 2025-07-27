@@ -12,7 +12,6 @@ var client_id = process.env.SPOTIFY_CLIENT_ID;
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 var refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
 var node_env = process.env.NODE_ENV;
-var USE_MOCK_DATA = true;
 
 var basic = Buffer.from(client_id + ':' + client_secret).toString('base64');
 var TOP_TRACKS_ENDPOINT = '/me/top/tracks?time_range=long_term&limit=8';
