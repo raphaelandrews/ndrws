@@ -14,8 +14,8 @@ var refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
 var node_env = process.env.NODE_ENV;
 
 var basic = Buffer.from(client_id + ':' + client_secret).toString('base64');
-var TOP_TRACKS_ENDPOINT = '/me/top/tracks?time_range=long_term&limit=8';
-var TOP_ARTISTS_ENDPOINT = '/me/top/artists?time_range=long_term&limit=8';
+var TOP_TRACKS_ENDPOINT = '/me/top/tracks?time_range=long_term&limit=6';
+var TOP_ARTISTS_ENDPOINT = '/me/top/artists?time_range=long_term&limit=6';
 var CURRENTLY_PLAYING_ENDPOINT = '/me/player/currently-playing';
 var RECENTLY_PLAYED_ENDPOINT = '/me/player/recently-played?limit=3';
 
@@ -156,28 +156,6 @@ var mockArtistsData = [
     },
     url: 'https://open.spotify.com/artist/2tz0dkPlnWB4NcHNIqWPgh'
   },
-  {
-    id: '31eXqCx5cAlItdGdoHMEOu',
-    name: 'Theatre Of Tragedy',
-    genres: ['gothic metal', 'symphonic metal', 'doom metal', 'gothic rock'],
-    image: {
-      height: 640,
-      url: 'https://i.scdn.co/image/ab6761610000e5eb2d47a4f355c8dc21d651fcca',
-      width: 640
-    },
-    url: 'https://open.spotify.com/artist/31eXqCx5cAlItdGdoHMEOu'
-  },
-  {
-    id: '3h9p6ezLoqYJ0viEfqGE4j',
-    name: 'Exit Eden',
-    genres: ['symphonic metal', 'gothic metal', 'power metal'],
-    image: {
-      height: 640,
-      url: 'https://i.scdn.co/image/ab6761610000e5ebaabe60fe549d936b72e1c4a1',
-      width: 640
-    },
-    url: 'https://open.spotify.com/artist/3h9p6ezLoqYJ0viEfqGE4j'
-  }
 ];
 
 var mockTracksData = [
@@ -253,30 +231,6 @@ var mockTracksData = [
     },
     url: 'https://open.spotify.com/track/1LHZMWefF9502NPfArRfvP'
   },
-  {
-    id: '2qURNRJHKUjc9aT398g0pf',
-    name: 'Venus',
-    artists: [{ name: 'Theatre Of Tragedy' }],
-    albumName: 'Aégis',
-    albumImage: {
-      height: 640,
-      url: 'https://i.scdn.co/image/ab67616d0000b273af6b567023c685829c273982',
-      width: 640
-    },
-    url: 'https://open.spotify.com/track/2qURNRJHKUjc9aT398g0pf'
-  },
-  {
-    id: '6efSwlK3LOlWOeKK9xlUKF',
-    name: 'Jekyll and Hyde',
-    artists: [{ name: 'Five Finger Death Punch' }],
-    albumName: 'Got Your Six',
-    albumImage: {
-      height: 640,
-      url: 'https://i.scdn.co/image/ab67616d0000b2734804f1513736e5e2b3e053dc',
-      width: 640
-    },
-    url: 'https://open.spotify.com/track/6efSwlK3LOlWOeKK9xlUKF'
-  }
 ];
 
 function getAccessToken(callback) {

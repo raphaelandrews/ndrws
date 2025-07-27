@@ -10,7 +10,7 @@ window.onload = function () {
 };
 
 function TopArtists() {
-    var spotifySection = document.getElementById('spotify-data-main');
+    var spotifySection = document.getElementById('spotify-data-top-artists');
     var data = getSpotifyData('top-artists');
 
     if (data && Array.isArray(data) && data.length > 0) {
@@ -35,7 +35,7 @@ function TopArtists() {
 };
 
 function TopTracks() {
-    var spotifySection = document.getElementById('spotify-data-main');
+    var spotifySection = document.getElementById('spotify-data-top-tracks');
     var data = getSpotifyData('top-tracks');
 
     if (data && Array.isArray(data) && data.length > 0) {
@@ -111,7 +111,7 @@ function VinylContainer(records) {
 }
 
 function CurrentlyPlaying(data) {
-    var spotifySection = document.getElementById('spotify-data-right');
+    var spotifySection = document.getElementById('spotify-data-music');
 
     if (data && data.isPlaying) {
         var currentlyPlayingTitle = document.createElement('h3');
@@ -129,7 +129,7 @@ function CurrentlyPlaying(data) {
         spotifySection.appendChild(vinylContainer);
 
         var songInfoDiv = document.createElement('div');
-        songInfoDiv.innerHTML = '<p><strong>' + data.title + '</strong></p><p>' + data.artist + '</p>';
+        songInfoDiv.innerHTML = '<p style="margin-block: 8px"><strong>' + data.title + '</strong></p><p style="margin: 0px">' + data.artist + '</p>';
         spotifySection.appendChild(songInfoDiv);
     } else {
         var notPlayingTitle = document.createElement('h3');
@@ -155,7 +155,7 @@ function CurrentlyPlaying(data) {
 }
 
 function RecentlyPlayed(isRightTd) {
-    var spotifySection = isRightTd ? document.getElementById('spotify-data-right') : document.getElementById('spotify-data-main');
+    var spotifySection = isRightTd ? document.getElementById('spotify-data-music') : document.getElementById('spotify-data-main');
     var responseData = getSpotifyData('recently-played');
 
     if (responseData && responseData.items && responseData.items.length > 0) {

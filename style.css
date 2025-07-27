@@ -76,7 +76,10 @@ h2 {
 }
 
 h3 {
+  font-size: 20px;
   font-weight: normal;
+  color: var(--primary-color);
+  margin: 0;
 }
 
 table {
@@ -103,6 +106,12 @@ tr {
   border-color: inherit;
 }
 
+td {
+  display: table-cell;
+  vertical-align: top;
+  unicode-bidi: isolate;
+}
+
 #container {
   margin: 0 auto;
   text-align: left;
@@ -117,17 +126,11 @@ tr {
 
 #main-td {
   width: 800px;
-  vertical-align: top;
 }
 
-#left-td {
-  width: 225px;
-  vertical-align: top;
-}
-
+#left-td,
 #right-td {
   width: 225px;
-  vertical-align: top;
 }
 
 #spotify-data {
@@ -150,6 +153,16 @@ tr {
   align-items: center;
 }
 
+#macro {
+  width: 580px;
+  float: left;
+}
+
+#social-links {
+  width: 156px;
+  float: right;
+}
+
 #badges {
   width: 150px;
   height: 20px;
@@ -160,7 +173,6 @@ tr {
   border: 2px solid #383838;
   border-radius: 4px;
   border-style: dotted;
-  color: white;
   padding: 10px 15px;
   margin: 5px;
 }
@@ -219,7 +231,6 @@ tr {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 10px;
-  justify-content: center;
 }
 
 .vinyl-container a:not(:first-child) {
