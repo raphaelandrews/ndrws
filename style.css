@@ -65,7 +65,7 @@ h1 {
   text-align: center;
   line-height: 1em;
   color: var(--primary-color);
-  margin: 20px 0;
+  margin: 32px 0 20px;
 }
 
 h2 {
@@ -158,14 +158,19 @@ td {
   float: left;
 }
 
-#social-links {
-  width: 156px;
+#blinkies {
+  width: 150px;
+  height: 20px;
+}
+
+#blinkies-1 {
+  width: 150px;
   float: right;
 }
 
-#badges {
-  width: 150px;
-  height: 20px;
+#social-links {
+  width: 156px;
+  float: right;
 }
 
 .wrapper {
