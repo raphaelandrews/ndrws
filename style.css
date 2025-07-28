@@ -200,6 +200,12 @@ td {
   float: left;
 }
 
+#city-images img {
+  width: calc(100% / 3);
+  float: left;
+  margin: 0;
+}
+
 .track-list-item .track-text-content,
 .artist-list-item .artist-text-content {
   margin-left: 0;
