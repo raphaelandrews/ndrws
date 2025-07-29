@@ -131,6 +131,7 @@ td {
 #left-td,
 #right-td {
   width: 225px;
+  padding-top: 2px;
 }
 
 #spotify-data {
