@@ -164,7 +164,7 @@ function RecentlyPlayed(isRightTd) {
         spotifySection.appendChild(recentlyPlayedTitle);
 
         var vinylRecordsData = [];
-        var itemsToDisplay = isRightTd ? [responseData.items[0]] : responseData.items; // Only show the first item if it's for right-td
+        var itemsToDisplay = isRightTd ? [responseData.items[0]] : responseData.items; 
 
         for (var i = 0; i < itemsToDisplay.length; i++) {
             if (itemsToDisplay[i].track) {
@@ -184,7 +184,6 @@ function RecentlyPlayed(isRightTd) {
             var vinylContainer = VinylContainer(vinylRecordsData);
             spotifySection.appendChild(vinylContainer);
 
-            // Add song title and artist for recently played
             if (isRightTd && itemsToDisplay[0] && itemsToDisplay[0].track) {
                 var track = itemsToDisplay[0].track;
                 var songInfoDiv = document.createElement('div');
