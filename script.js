@@ -187,7 +187,7 @@ function RecentlyPlayed(isRightTd) {
             if (isRightTd && itemsToDisplay[0] && itemsToDisplay[0].track) {
                 var track = itemsToDisplay[0].track;
                 var songInfoDiv = document.createElement('div');
-                songInfoDiv.innerHTML = '<p><strong>' + track.name + '</strong></p><p>' + track.artists[0].name + '</p>';
+                songInfoDiv.innerHTML = '<p style="margin-block: 8px"><strong>' + track.name + '</strong></p><p style="margin: 0px">' + track.artists[0].name + '</p>';
                 spotifySection.appendChild(songInfoDiv);
             }
 
