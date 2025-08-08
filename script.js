@@ -222,3 +222,172 @@ function getSpotifyData(endpoint) {
 
 };
 
+//eva
+function generateSlantedRectangles() {
+    var container = document.getElementById("slanted-rectangles-container");
+
+    container.innerHTML = "";
+
+    var regularColumn = document.createElement("div");
+    regularColumn.id = "regular-column";
+    container.appendChild(regularColumn);
+
+    var flippedColumn = document.createElement("div");
+    flippedColumn.id = "flipped-column";
+    container.appendChild(flippedColumn);
+
+    for (var i = 0; i < 16; i++) {
+        var rectangle = document.createElement("div");
+        rectangle.className = "slanted-rectangle";
+        rectangle.id = "slanted-rectangle-" + i;
+        regularColumn.appendChild(rectangle);
+    }
+}
+
+generateSlantedRectangles();
+
+const imageButtonIds = [
+    "button-page-contains-js",
+    "button-free-msn",
+    "button-web-design-passion",
+    "button-mail-put",
+    "button-netscape-now",
+    "button-768-colors",
+    "button-best-enjoyed-cola",
+    "button-yahoo-mail",
+    "button-evangelion1",
+    "button-pokemon",
+    "button-blender",
+    "button-getwc",
+    "button-best-viewned-pepsi",
+    "button-hl",
+    "button-html-editor",
+    "button-neocities",
+    "button-tv-color",
+    "button-theoc",
+    "button-sanehtml",
+    "button-source-powered",
+    "button-get-java",
+    "button-aol",
+    "button-gc-tropics",
+    "button-cassette",
+    "button-steam",
+    "button-winrar4",
+    "button-hd3",
+    "button-child",
+    "button-atari-2600",
+    "button-freewareguide2",
+    "button-pkmn",
+    "button-spacelink"
+];
+
+const buttonStates = {}; 
+
+function generateSlantedRectanglesForButtons() {
+    const container = document.getElementById("slanted-rectangles-container");
+    container.innerHTML = "";
+
+    const rectanglesPerColumn = 8;
+    let currentColumn = null;
+
+    imageButtonIds.forEach((buttonId, index) => {
+        if (index % rectanglesPerColumn === 0) {
+            currentColumn = document.createElement("div");
+            currentColumn.className = "slanted-rectangle-column";
+            container.appendChild(currentColumn);
+        }
+
+        const rectangle = document.createElement("div");
+        const columnIndex = Math.floor(index / rectanglesPerColumn);
+        rectangle.className = (columnIndex % 2 === 0) ? "slanted-rectangle-flip" : "slanted-rectangle";
+        rectangle.id = `slanted-rectangle-${index}`;
+        rectangle.dataset.buttonId = buttonId; 
+        rectangle.addEventListener('click', () => handleSlantedRectangleClick(rectangle.id));
+        currentColumn.appendChild(rectangle);
+        buttonStates[buttonId] = { active: true, originalElement: null }; 
+    });
+}
+
+function handleSlantedRectangleClick(slantedRectangleId) {
+    const slantedRectangle = document.getElementById(slantedRectangleId);
+    const buttonId = slantedRectangle.dataset.buttonId;
+    let currentButtonElement = document.getElementById(buttonId);
+
+    if (slantedRectangle && currentButtonElement) {
+        if (buttonStates[buttonId].active) {
+            slantedRectangle.style.backgroundColor = '#FF0000';
+            slantedRectangle.style.boxShadow = '0 0 8px 1px rgba(255, 0, 0, 0.7)';
+
+            buttonStates[buttonId].originalElement = currentButtonElement;
+
+            const greyDiv = document.createElement('div');
+            greyDiv.style.width = currentButtonElement.offsetWidth + 'px';
+            greyDiv.style.height = currentButtonElement.offsetHeight + 'px';
+            greyDiv.style.backgroundColor = '#808080';
+            greyDiv.style.display = 'inline-block';
+            greyDiv.style.margin = window.getComputedStyle(currentButtonElement).margin; 
+            greyDiv.id = buttonId;
+
+            currentButtonElement.parentNode.replaceChild(greyDiv, currentButtonElement);
+            buttonStates[buttonId].active = false;
+        } else {
+            slantedRectangle.style.backgroundColor = ''; 
+            slantedRectangle.style.boxShadow = ''; 
+
+            if (currentButtonElement && buttonStates[buttonId].originalElement) {
+                buttonStates[buttonId].originalElement.id = buttonId;
+                currentButtonElement.parentNode.replaceChild(buttonStates[buttonId].originalElement, currentButtonElement);
+            }
+            buttonStates[buttonId].active = true;
+        }
+    }
+}
+
+window.onload = function () {
+    var currentlyPlayingData = getSpotifyData('currently-playing');
+    if (currentlyPlayingData && currentlyPlayingData.isPlaying) {
+        CurrentlyPlaying(currentlyPlayingData);
+    } else {
+        RecentlyPlayed(true);
+    }
+    TopArtists();
+    TopTracks();
+    generateSlantedRectanglesForButtons(); 
+};
+
+function generatePattern() {
+    const container = document.getElementById("patternContainer");
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    let octagonSize = 96;
+
+    if (viewportWidth <= 480) {
+        octagonSize = 64;
+    } else if (viewportWidth <= 768) {
+        octagonSize = 80;
+    }
+
+    const cols = Math.floor((viewportWidth - 10) / (octagonSize - 1));
+    const rows = Math.floor((viewportHeight - 10) / (octagonSize - 1));
+
+    container.innerHTML = "";
+
+    const totalOctagons = cols * rows;
+    for (let i = 0; i < totalOctagons; i++) {
+        const octagon = document.createElement("div");
+        octagon.className = "octagon";
+
+        if (octagonSize !== 96) {
+            octagon.style.width = octagonSize + "px";
+        }
+
+        container.appendChild(octagon);
+    }
+}
+
+let resizeTimeout;
+window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(generatePattern, 250);
+});
