@@ -201,12 +201,6 @@ td {
   float: left;
 }
 
-#film img {
-  width: calc(100% / 3);
-  float: left;
-  margin: 0;
-}
-
 .track-list-item .track-text-content,
 .artist-list-item .artist-text-content {
   margin-left: 0;
@@ -333,4 +327,188 @@ td {
 
 .animate-spin {
   animation: spin 3s linear infinite;
+}
+
+/*eva*/
+
+.slanted-rectangle {
+  position: relative;
+  width: 80px;
+  height: 20px;
+  background-color: #35ffb3;
+  transform: skewX(25deg);
+  rotate: 25deg;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 15px;
+  box-sizing: border-box;
+  box-shadow: 0 0 8px 1px rgba(53, 255, 179, 0.7);
+}
+
+.slanted-rectangle-flip {
+  position: relative;
+  width: 80px;
+  height: 20px;
+  background-color: #35ffb3;
+  transform: skewX(-25deg);
+  rotate: -25deg;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 15px;
+  box-sizing: border-box;
+  box-shadow: 0 0 8px 1px rgba(53, 255, 179, 0.7);
+}
+
+.slanted-rectangle::before,
+.slanted-rectangle-flip::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 9px;
+  height: 6px;
+  background-color: #ff8c00;
+}
+
+.slanted-rectangle::after {
+  content: "";
+  position: absolute;
+  bottom: -24px;
+  right: 12px;
+  width: 2px;
+  height: 24px;
+  background-color: #ff8c00;
+}
+
+.slanted-rectangle-flip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: -56px;
+  width: 56px;
+  height: 2px;
+  background-color: #ff8c00;
+  transform: skewX(20deg);
+  rotate: 20deg;
+}
+
+.slanted-rectangle:last-child:after {
+  display: none;
+}
+
+.horizontal-rectangles-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.horizontal-rectangle {
+  position: relative;
+  width: 120px;
+  height: 40px;
+  background-color: #00ff99;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 15px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.horizontal-rectangle span {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #0d0d0d;
+}
+
+.horizontal-rectangle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  background-color: #ff8c00;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  border-top-left-radius: 5px;
+}
+
+#slanted-rectangles-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+  margin: 40px auto;
+}
+
+#regular-column,
+#flipped-column,
+.slanted-rectangle-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.flip-horizontal {
+  transform: scaleX(-1);
+}
+
+.pattern-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+.octagon {
+  --b: 2px;
+  width: 96px;
+  margin: -1px;
+  aspect-ratio: 1;
+  --o: calc(50% * tan(-22.5deg));
+  --x: calc(var(--b) * cos(22.5deg));
+  --y: calc(var(--b) * sin(22.5deg));
+  clip-path: polygon(
+    var(--o) 50%,
+    50% var(--o),
+    calc(100% - var(--o)) 50%,
+    50% calc(100% - var(--o)),
+    var(--o) 50%,
+    calc(50% + var(--o) + var(--y)) var(--x),
+    var(--x) calc(50% + var(--o) + var(--y)),
+    var(--x) calc(50% - var(--o) - var(--y)),
+    calc(50% + var(--o) + var(--y)) calc(100% - var(--x)),
+    calc(50% - var(--o) - var(--y)) calc(100% - var(--x)),
+    calc(100% - var(--x)) calc(50% - var(--o) - var(--y)),
+    calc(100% - var(--x)) calc(50% + var(--o) + var(--y)),
+    calc(50% - var(--o) - var(--y)) var(--x),
+    calc(50% + var(--o) + var(--y)) var(--x)
+  );
+  background: rgba(108, 39, 10, 1);
+  transition: transform 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .pattern-container {
+    grid-template-columns: repeat(auto-fit, 80px);
+    gap: 3px;
+  }
+
+  .octagon {
+    width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pattern-container {
+    grid-template-columns: repeat(auto-fit, 64px);
+    gap: 2px;
+  }
+
+  .octagon {
+    width: 64px;
+  }
 }
