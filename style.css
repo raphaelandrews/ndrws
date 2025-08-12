@@ -5,16 +5,11 @@
   font-style: normal;
 }
 
-:root {
-  --body-text-shadow: 0 0 20px #ffffff4a;
-  --primary-color: #fec013;
-}
-
 body {
   font-family: "04b_03";
   font-size: 14px;
   color: white;
-  text-shadow: var(--body-text-shadow);
+  text-shadow: 0 0 20px #ffffff4a;
   image-rendering: pixelated;
   background-color: black;
   background-image: url("images/stars-bg.gif");
@@ -64,21 +59,21 @@ h1 {
   font-size: 64px;
   text-align: center;
   line-height: 1em;
-  color: var(--primary-color);
+  color: #fec013;
   margin: 32px 0 20px;
 }
 
 h2 {
   font-size: 28px;
   font-weight: bold;
-  color: var(--primary-color);
+  color: #fec013;
   margin: 0;
 }
 
 h3 {
   font-size: 20px;
   font-weight: normal;
-  color: var(--primary-color);
+  color: #fec013;
   margin: 0;
 }
 
