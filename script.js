@@ -333,6 +333,7 @@ function handleSlantedRectangleClick(slantedRectangleId) {
 }
 
 window.onload = function () {
+    generateSlantedRectanglesForButtons();
     var currentlyPlayingData = getSpotifyData('currently-playing');
     if (currentlyPlayingData && currentlyPlayingData.isPlaying) {
         CurrentlyPlaying(currentlyPlayingData);
@@ -341,42 +342,4 @@ window.onload = function () {
     }
     TopArtists();
     TopTracks();
-    generateSlantedRectanglesForButtons();
-};
-
-function generatePattern() {
-    var container = document.getElementById("patternContainer");
-    var viewportWidth = window.innerWidth;
-    var viewportHeight = window.innerHeight;
-
-    var octagonSize = 96;
-
-    if (viewportWidth <= 480) {
-        octagonSize = 64;
-    } else if (viewportWidth <= 768) {
-        octagonSize = 80;
-    }
-
-    var cols = Math.floor((viewportWidth - 10) / (octagonSize - 1));
-    var rows = Math.floor((viewportHeight - 10) / (octagonSize - 1));
-
-    container.innerHTML = "";
-
-    var totalOctagons = cols * rows;
-    for (var i = 0; i < totalOctagons; i++) {
-        var octagon = document.createElement("div");
-        octagon.className = "octagon";
-
-        if (octagonSize !== 96) {
-            octagon.style.width = octagonSize + "px";
-        }
-
-        container.appendChild(octagon);
-    }
-}
-
-var resizeTimeout;
-window.onresize = function () {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(generatePattern, 250);
 };
