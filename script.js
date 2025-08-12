@@ -1,14 +1,3 @@
-window.onload = function () {
-    var currentlyPlayingData = getSpotifyData('currently-playing');
-    if (currentlyPlayingData && currentlyPlayingData.isPlaying) {
-        CurrentlyPlaying(currentlyPlayingData);
-    } else {
-        RecentlyPlayed(true);
-    }
-    TopArtists();
-    TopTracks();
-};
-
 function TopArtists() {
     var spotifySection = document.getElementById('spotify-data-top-artists');
     var data = getSpotifyData('top-artists');
@@ -164,7 +153,7 @@ function RecentlyPlayed(isRightTd) {
         spotifySection.appendChild(recentlyPlayedTitle);
 
         var vinylRecordsData = [];
-        var itemsToDisplay = isRightTd ? [responseData.items[0]] : responseData.items; 
+        var itemsToDisplay = isRightTd ? [responseData.items[0]] : responseData.items;
 
         for (var i = 0; i < itemsToDisplay.length; i++) {
             if (itemsToDisplay[i].track) {
@@ -246,7 +235,7 @@ function generateSlantedRectangles() {
 
 generateSlantedRectangles();
 
-const imageButtonIds = [
+var imageButtonIds = [
     "button-page-contains-js",
     "button-free-msn",
     "button-web-design-passion",
@@ -281,14 +270,14 @@ const imageButtonIds = [
     "button-spacelink"
 ];
 
-const buttonStates = {}; 
+var buttonStates = {};
 
 function generateSlantedRectanglesForButtons() {
-    const container = document.getElementById("slanted-rectangles-container");
+    var container = document.getElementById("slanted-rectangles-container");
     container.innerHTML = "";
 
-    const rectanglesPerColumn = 8;
-    let currentColumn = null;
+    var rectanglesPerColumn = 8;
+    var currentColumn = null;
 
     imageButtonIds.forEach((buttonId, index) => {
         if (index % rectanglesPerColumn === 0) {
@@ -297,21 +286,21 @@ function generateSlantedRectanglesForButtons() {
             container.appendChild(currentColumn);
         }
 
-        const rectangle = document.createElement("div");
-        const columnIndex = Math.floor(index / rectanglesPerColumn);
+        var rectangle = document.createElement("div");
+        var columnIndex = Math.floor(index / rectanglesPerColumn);
         rectangle.className = (columnIndex % 2 === 0) ? "slanted-rectangle-flip" : "slanted-rectangle";
         rectangle.id = `slanted-rectangle-${index}`;
-        rectangle.dataset.buttonId = buttonId; 
-        rectangle.addEventListener('click', () => handleSlantedRectangleClick(rectangle.id));
+        rectangle.dataset.buttonId = buttonId;
+        rectangle.onclick = function () { handleSlantedRectangleClick(rectangle.id); };
         currentColumn.appendChild(rectangle);
-        buttonStates[buttonId] = { active: true, originalElement: null }; 
+        buttonStates[buttonId] = { active: true, originalElement: null };
     });
 }
 
 function handleSlantedRectangleClick(slantedRectangleId) {
-    const slantedRectangle = document.getElementById(slantedRectangleId);
-    const buttonId = slantedRectangle.dataset.buttonId;
-    let currentButtonElement = document.getElementById(buttonId);
+    var slantedRectangle = document.getElementById(slantedRectangleId);
+    var buttonId = slantedRectangle.dataset.buttonId;
+    var currentButtonElement = document.getElementById(buttonId);
 
     if (slantedRectangle && currentButtonElement) {
         if (buttonStates[buttonId].active) {
@@ -320,19 +309,19 @@ function handleSlantedRectangleClick(slantedRectangleId) {
 
             buttonStates[buttonId].originalElement = currentButtonElement;
 
-            const greyDiv = document.createElement('div');
+            var greyDiv = document.createElement('div');
             greyDiv.style.width = currentButtonElement.offsetWidth + 'px';
             greyDiv.style.height = currentButtonElement.offsetHeight + 'px';
             greyDiv.style.backgroundColor = '#808080';
             greyDiv.style.display = 'inline-block';
-            greyDiv.style.margin = window.getComputedStyle(currentButtonElement).margin; 
+            greyDiv.style.margin = window.getComputedStyle(currentButtonElement).margin;
             greyDiv.id = buttonId;
 
             currentButtonElement.parentNode.replaceChild(greyDiv, currentButtonElement);
             buttonStates[buttonId].active = false;
         } else {
-            slantedRectangle.style.backgroundColor = ''; 
-            slantedRectangle.style.boxShadow = ''; 
+            slantedRectangle.style.backgroundColor = '';
+            slantedRectangle.style.boxShadow = '';
 
             if (currentButtonElement && buttonStates[buttonId].originalElement) {
                 buttonStates[buttonId].originalElement.id = buttonId;
@@ -344,6 +333,7 @@ function handleSlantedRectangleClick(slantedRectangleId) {
 }
 
 window.onload = function () {
+    generateSlantedRectanglesForButtons();
     var currentlyPlayingData = getSpotifyData('currently-playing');
     if (currentlyPlayingData && currentlyPlayingData.isPlaying) {
         CurrentlyPlaying(currentlyPlayingData);
@@ -352,42 +342,4 @@ window.onload = function () {
     }
     TopArtists();
     TopTracks();
-    generateSlantedRectanglesForButtons(); 
 };
-
-function generatePattern() {
-    const container = document.getElementById("patternContainer");
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-
-    let octagonSize = 96;
-
-    if (viewportWidth <= 480) {
-        octagonSize = 64;
-    } else if (viewportWidth <= 768) {
-        octagonSize = 80;
-    }
-
-    const cols = Math.floor((viewportWidth - 10) / (octagonSize - 1));
-    const rows = Math.floor((viewportHeight - 10) / (octagonSize - 1));
-
-    container.innerHTML = "";
-
-    const totalOctagons = cols * rows;
-    for (let i = 0; i < totalOctagons; i++) {
-        const octagon = document.createElement("div");
-        octagon.className = "octagon";
-
-        if (octagonSize !== 96) {
-            octagon.style.width = octagonSize + "px";
-        }
-
-        container.appendChild(octagon);
-    }
-}
-
-let resizeTimeout;
-window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(generatePattern, 250);
-});

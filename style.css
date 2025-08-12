@@ -5,16 +5,11 @@
   font-style: normal;
 }
 
-:root {
-  --body-text-shadow: 0 0 20px #ffffff4a;
-  --primary-color: #fec013;
-}
-
 body {
   font-family: "04b_03";
   font-size: 14px;
   color: white;
-  text-shadow: var(--body-text-shadow);
+  text-shadow: 0 0 20px #ffffff4a;
   image-rendering: pixelated;
   background-color: black;
   background-image: url("images/stars-bg.gif");
@@ -64,21 +59,21 @@ h1 {
   font-size: 64px;
   text-align: center;
   line-height: 1em;
-  color: var(--primary-color);
+  color: #fec013;
   margin: 32px 0 20px;
 }
 
 h2 {
   font-size: 28px;
   font-weight: bold;
-  color: var(--primary-color);
+  color: #fec013;
   margin: 0;
 }
 
 h3 {
   font-size: 20px;
   font-weight: normal;
-  color: var(--primary-color);
+  color: #fec013;
   margin: 0;
 }
 
@@ -110,6 +105,14 @@ td {
   display: table-cell;
   vertical-align: top;
   unicode-bidi: isolate;
+}
+
+textarea {
+  background-color: black;
+  color: white;
+  border: 1px solid #383838;
+  font-family: MS Gothic, monospace;
+  resize: none;
 }
 
 #container {
@@ -162,6 +165,7 @@ td {
 #blinkies {
   width: 150px;
   height: 20px;
+  margin-top: 4px;
 }
 
 #blinkies-1 {
@@ -398,44 +402,6 @@ td {
   display: none;
 }
 
-.horizontal-rectangles-group {
-  display: flex;
-  gap: 15px;
-  margin-top: 30px;
-}
-
-.horizontal-rectangle {
-  position: relative;
-  width: 120px;
-  height: 40px;
-  background-color: #00ff99;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding-left: 15px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.horizontal-rectangle span {
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #0d0d0d;
-}
-
-.horizontal-rectangle::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 15px;
-  height: 15px;
-  background-color: #ff8c00;
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-  border-top-left-radius: 5px;
-}
-
 #slanted-rectangles-container {
   display: flex;
   justify-content: center;
@@ -454,61 +420,4 @@ td {
 
 .flip-horizontal {
   transform: scaleX(-1);
-}
-
-.pattern-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: center;
-}
-
-.octagon {
-  --b: 2px;
-  width: 96px;
-  margin: -1px;
-  aspect-ratio: 1;
-  --o: calc(50% * tan(-22.5deg));
-  --x: calc(var(--b) * cos(22.5deg));
-  --y: calc(var(--b) * sin(22.5deg));
-  clip-path: polygon(
-    var(--o) 50%,
-    50% var(--o),
-    calc(100% - var(--o)) 50%,
-    50% calc(100% - var(--o)),
-    var(--o) 50%,
-    calc(50% + var(--o) + var(--y)) var(--x),
-    var(--x) calc(50% + var(--o) + var(--y)),
-    var(--x) calc(50% - var(--o) - var(--y)),
-    calc(50% + var(--o) + var(--y)) calc(100% - var(--x)),
-    calc(50% - var(--o) - var(--y)) calc(100% - var(--x)),
-    calc(100% - var(--x)) calc(50% - var(--o) - var(--y)),
-    calc(100% - var(--x)) calc(50% + var(--o) + var(--y)),
-    calc(50% - var(--o) - var(--y)) var(--x),
-    calc(50% + var(--o) + var(--y)) var(--x)
-  );
-  background: rgba(108, 39, 10, 1);
-  transition: transform 0.2s ease;
-}
-
-@media (max-width: 768px) {
-  .pattern-container {
-    grid-template-columns: repeat(auto-fit, 80px);
-    gap: 3px;
-  }
-
-  .octagon {
-    width: 80px;
-  }
-}
-
-@media (max-width: 480px) {
-  .pattern-container {
-    grid-template-columns: repeat(auto-fit, 64px);
-    gap: 2px;
-  }
-
-  .octagon {
-    width: 64px;
-  }
 }
