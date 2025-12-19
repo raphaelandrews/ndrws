@@ -14,7 +14,9 @@ function TopArtists() {
                 imageUrl: artist.image ? artist.image.url : '',
                 alt: artist.name,
                 isPlaying: false,
-                url: artist.url
+                url: artist.url,
+                title: artist.name,
+                artist: ''
             });
         }
 
@@ -39,7 +41,9 @@ function TopTracks() {
                 imageUrl: track.albumImage ? track.albumImage.url : '',
                 alt: track.albumName,
                 isPlaying: false,
-                url: track.url
+                url: track.url,
+                title: track.name,
+                artist: track.artists && track.artists.length > 0 ? track.artists[0].name : ''
             });
         }
 
@@ -53,8 +57,24 @@ function VinylRecord(record) {
     var alt = record.alt;
     var isPlaying = record.isPlaying || false;
     var url = record.url;
+    var title = record.title || '';
+    var artist = record.artist || '';
+    
     var vinylRecordDiv = document.createElement('div');
     vinylRecordDiv.className = 'vinyl-record ' + (isPlaying ? 'animate-spin' : '');
+
+    var tooltipText = '';
+    if (title && artist) {
+        tooltipText = title + ' - ' + artist;
+    } else if (title) {
+        tooltipText = title;
+    } else if (artist) {
+        tooltipText = artist;
+    }
+
+    if (tooltipText) {
+        vinylRecordDiv.title = tooltipText;
+    }
 
     var vinylBackgroundDiv = document.createElement('div');
     vinylBackgroundDiv.className = 'vinyl-record-background';
@@ -111,7 +131,9 @@ function CurrentlyPlaying(data) {
             imageUrl: data.albumImageUrl,
             alt: data.title,
             isPlaying: true,
-            url: data.songUrl
+            url: data.songUrl,
+            title: data.title,
+            artist: data.artist
         }];
 
         var vinylContainer = VinylContainer(vinylRecordsData);
@@ -233,7 +255,7 @@ function generateSlantedRectangles() {
     }
 }
 
-generateSlantedRectangles();
+//generateSlantedRectangles();
 
 var imageButtonIds = [
     "button-page-contains-js",
@@ -332,8 +354,9 @@ function handleSlantedRectangleClick(slantedRectangleId) {
     }
 }
 
+
 window.onload = function () {
-    generateSlantedRectanglesForButtons();
+    /*generateSlantedRectanglesForButtons();*/
     var currentlyPlayingData = getSpotifyData('currently-playing');
     if (currentlyPlayingData && currentlyPlayingData.isPlaying) {
         CurrentlyPlaying(currentlyPlayingData);
